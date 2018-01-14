@@ -1,0 +1,1937 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{0\_nearest-neighbors-features-and-metrics\_blank}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Nearest Neighbors}\label{nearest-neighbors}
+
+    When exploring a large set of documents -\/- such as Wikipedia, news
+articles, StackOverflow, etc. -\/- it can be useful to get a list of
+related material. To find relevant documents you typically * Decide on a
+notion of similarity * Find the documents that are most similar
+
+In the assignment you will * Gain intuition for different notions of
+similarity and practice finding similar documents. * Explore the
+tradeoffs with representing documents using raw word counts and TF-IDF *
+Explore the behavior of different distance metrics by looking at the
+Wikipedia pages most similar to President Obama's page.
+
+    \textbf{Note to Amazon EC2 users}: To conserve memory, make sure to stop
+all the other notebooks before running this notebook.
+
+    \subsection{Import necessary packages}\label{import-necessary-packages}
+
+    As usual we need to first import the Python packages that we will need.
+
+The following code block will check if you have the correct version of
+GraphLab Create. Any version later than 1.8.5 will do. To upgrade, read
+\href{https://turi.com/download/upgrade-graphlab-create.html}{this
+page}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{graphlab}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Check GraphLab Create version\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{k+kn}{from} \PY{n+nn}{distutils.version} \PY{k+kn}{import} \PY{n}{StrictVersion}
+        \PY{k}{assert} \PY{p}{(}\PY{n}{StrictVersion}\PY{p}{(}\PY{n}{graphlab}\PY{o}{.}\PY{n}{version}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{StrictVersion}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1.8.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GraphLab Create must be version 1.8.5 or later.}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        RuntimeError                              Traceback (most recent call last)
+
+        RuntimeError: module compiled against API version 0xb but this version of numpy is 0xa
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+This non-commercial license of GraphLab Create for academic use is assigned to niklas.eicker@rwth-aachen.de and will expire on November 02, 2018.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[INFO] graphlab.cython.cy\_server: GraphLab Create v2.1 started. Logging: /tmp/graphlab\_server\_1513072067.log
+
+    \end{Verbatim}
+
+    \subsection{Load Wikipedia dataset}\label{load-wikipedia-dataset}
+
+    We will be using the same dataset of Wikipedia pages that we used in the
+Machine Learning Foundations course (Course 1). Each element of the
+dataset consists of a link to the wikipedia article, the name of the
+person, and the text of the article (in lowercase).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{wiki} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{SFrame}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{people\PYZus{}wiki.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Finished parsing file /home/nikl/DataScience/project_7/people_wiki.csv
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Parsing completed. Parsed 100 lines in 5.69142 secs.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+------------------------------------------------------
+Inferred types from first 100 line(s) of file as 
+column\_type\_hints=[str,str,str]
+If parsing fails due to incorrect types, you can correct
+the inferred type list above and pass it to read\_csv in
+the column\_type\_hints argument
+------------------------------------------------------
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+Read 26770 lines. Lines per second: 7153.12
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Finished parsing file /home/nikl/DataScience/project_7/people_wiki.csv
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Parsing completed. Parsed 59071 lines in 4.81736 secs.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{wiki}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} Columns:
+        	URI	str
+        	name	str
+        	text	str
+        
+        Rows: 59071
+        
+        Data:
+        +-------------------------------+---------------------+
+        |              URI              |         name        |
+        +-------------------------------+---------------------+
+        | <http://dbpedia.org/resour{\ldots} |    Digby Morrell    |
+        | <http://dbpedia.org/resour{\ldots} |    Alfred J. Lewy   |
+        | <http://dbpedia.org/resour{\ldots} |    Harpdog Brown    |
+        | <http://dbpedia.org/resour{\ldots} | Franz Rottensteiner |
+        | <http://dbpedia.org/resour{\ldots} |        G-Enka       |
+        | <http://dbpedia.org/resour{\ldots} |    Sam Henderson    |
+        | <http://dbpedia.org/resour{\ldots} |    Aaron LaCrate    |
+        | <http://dbpedia.org/resour{\ldots} |   Trevor Ferguson   |
+        | <http://dbpedia.org/resour{\ldots} |     Grant Nelson    |
+        | <http://dbpedia.org/resour{\ldots} |     Cathy Caruth    |
+        +-------------------------------+---------------------+
+        +-------------------------------+
+        |              text             |
+        +-------------------------------+
+        | digby morrell born 10 octo{\ldots} |
+        | alfred j lewy aka sandy le{\ldots} |
+        | harpdog brown is a singer {\ldots} |
+        | franz rottensteiner born i{\ldots} |
+        | henry krvits born 30 decem{\ldots} |
+        | sam henderson born october{\ldots} |
+        | aaron lacrate is an americ{\ldots} |
+        | trevor ferguson aka john f{\ldots} |
+        | grant nelson born 27 april{\ldots} |
+        | cathy caruth born 1955 is {\ldots} |
+        +-------------------------------+
+        [59071 rows x 3 columns]
+        Note: Only the head of the SFrame is printed.
+        You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    \subsection{Extract word count
+vectors}\label{extract-word-count-vectors}
+
+    As we have seen in Course 1, we can extract word count vectors using a
+GraphLab utility function. We add this as a column in \texttt{wiki}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{text\PYZus{}analytics}\PY{o}{.}\PY{n}{count\PYZus{}words}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{wiki}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Columns:
+        	URI	str
+        	name	str
+        	text	str
+        	word\_count	dict
+        
+        Rows: 59071
+        
+        Data:
+        +-------------------------------+---------------------+
+        |              URI              |         name        |
+        +-------------------------------+---------------------+
+        | <http://dbpedia.org/resour{\ldots} |    Digby Morrell    |
+        | <http://dbpedia.org/resour{\ldots} |    Alfred J. Lewy   |
+        | <http://dbpedia.org/resour{\ldots} |    Harpdog Brown    |
+        | <http://dbpedia.org/resour{\ldots} | Franz Rottensteiner |
+        | <http://dbpedia.org/resour{\ldots} |        G-Enka       |
+        | <http://dbpedia.org/resour{\ldots} |    Sam Henderson    |
+        | <http://dbpedia.org/resour{\ldots} |    Aaron LaCrate    |
+        | <http://dbpedia.org/resour{\ldots} |   Trevor Ferguson   |
+        | <http://dbpedia.org/resour{\ldots} |     Grant Nelson    |
+        | <http://dbpedia.org/resour{\ldots} |     Cathy Caruth    |
+        +-------------------------------+---------------------+
+        +-------------------------------+-------------------------------+
+        |              text             |           word\_count          |
+        +-------------------------------+-------------------------------+
+        | digby morrell born 10 octo{\ldots} | \{'selection': 1, 'carltons{\ldots} |
+        | alfred j lewy aka sandy le{\ldots} | \{'precise': 1, 'thomas': 1{\ldots} |
+        | harpdog brown is a singer {\ldots} | \{'just': 1, 'issued': 1, '{\ldots} |
+        | franz rottensteiner born i{\ldots} | \{'all': 1, 'bauforschung':{\ldots} |
+        | henry krvits born 30 decem{\ldots} | \{'they': 1, 'gangstergenka{\ldots} |
+        | sam henderson born october{\ldots} | \{'currently': 1, 'less': 1{\ldots} |
+        | aaron lacrate is an americ{\ldots} | \{'exclusive': 2, 'producer{\ldots} |
+        | trevor ferguson aka john f{\ldots} | \{'taxi': 1, 'salon': 1, 'g{\ldots} |
+        | grant nelson born 27 april{\ldots} | \{'houston': 1, 'frankie': {\ldots} |
+        | cathy caruth born 1955 is {\ldots} | \{'phenomenon': 1, 'deboras{\ldots} |
+        +-------------------------------+-------------------------------+
+        [59071 rows x 4 columns]
+        Note: Only the head of the SFrame is printed.
+        You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    \subsection{Find nearest neighbors}\label{find-nearest-neighbors}
+
+    Let's start by finding the nearest neighbors of the Barack Obama page
+using the word count vectors to represent the articles and Euclidean
+distance to measure distance. For this, again will we use a GraphLab
+Create implementation of nearest neighbor search.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{model} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{nearest\PYZus{}neighbors}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{wiki}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                  \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brute\PYZus{}force}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{distance}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting brute force nearest neighbors model training.
+    \end{verbatim}
+
+    
+    Let's look at the top 10 nearest neighbors by performing the following
+query:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{model}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting pairwise querying.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Query points | # Pairs | % Complete. | Elapsed Time |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 1       | 0.00169288  | 41.917ms     |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Done         |         | 100         | 759.508ms    |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Columns:
+        	query\_label	str
+        	reference\_label	str
+        	distance	float
+        	rank	int
+        
+        Rows: 10
+        
+        Data:
+        +--------------+----------------------------+---------------+------+
+        | query\_label  |      reference\_label       |    distance   | rank |
+        +--------------+----------------------------+---------------+------+
+        | Barack Obama |        Barack Obama        |      0.0      |  1   |
+        | Barack Obama |         Joe Biden          | 33.0756708171 |  2   |
+        | Barack Obama |       George W. Bush       | 34.3947670438 |  3   |
+        | Barack Obama |      Lawrence Summers      | 36.1524549651 |  4   |
+        | Barack Obama |        Mitt Romney         | 36.1662826401 |  5   |
+        | Barack Obama |      Francisco Barrio      | 36.3318042492 |  6   |
+        | Barack Obama |       Walter Mondale       | 36.4005494464 |  7   |
+        | Barack Obama | Wynn Normington Hugh-Jones | 36.4965751818 |  8   |
+        | Barack Obama |         Don Bonker         |  36.633318168 |  9   |
+        | Barack Obama |        Andy Anstett        | 36.9594372252 |  10  |
+        +--------------+----------------------------+---------------+------+
+        [10 rows x 4 columns]
+\end{Verbatim}
+            
+    All of the 10 people are politicians, but about half of them have rather
+tenuous connections with Obama, other than the fact that they are
+politicians.
+
+\begin{itemize}
+\tightlist
+\item
+  Francisco Barrio is a Mexican politician, and a former governor of
+  Chihuahua.
+\item
+  Walter Mondale and Don Bonker are Democrats who made their career in
+  late 1970s.
+\item
+  Wynn Normington Hugh-Jones is a former British diplomat and Liberal
+  Party official.
+\item
+  Andy Anstett is a former politician in Manitoba, Canada.
+\end{itemize}
+
+Nearest neighbors with raw word counts got some things right, showing
+all politicians in the query result, but missed finer and important
+details.
+
+For instance, let's find out why Francisco Barrio was considered a close
+neighbor of Obama. To do this, let's look at the most frequently used
+words in each of Barack Obama and Francisco Barrio's pages:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{top\PYZus{}words}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Get a table of the most frequent words in the given person\PYZsq{}s wikipedia page.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{row} \PY{o}{=} \PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{name}\PY{p}{]}
+            \PY{n}{word\PYZus{}count\PYZus{}table} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{new\PYZus{}column\PYZus{}name}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{word\PYZus{}count\PYZus{}table}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{obama\PYZus{}words} \PY{o}{=} \PY{n}{top\PYZus{}words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{obama\PYZus{}words}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Columns:
+        	word	str
+        	count	int
+        
+        Rows: 273
+        
+        Data:
+        +-------+-------+
+        |  word | count |
+        +-------+-------+
+        |  the  |   40  |
+        |   in  |   30  |
+        |  and  |   21  |
+        |   of  |   18  |
+        |   to  |   14  |
+        |  his  |   11  |
+        | obama |   9   |
+        |  act  |   8   |
+        |   he  |   7   |
+        |   a   |   7   |
+        +-------+-------+
+        [273 rows x 2 columns]
+        Note: Only the head of the SFrame is printed.
+        You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{barrio\PYZus{}words} \PY{o}{=} \PY{n}{top\PYZus{}words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Francisco Barrio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{barrio\PYZus{}words}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Columns:
+         	word	str
+         	count	int
+         
+         Rows: 225
+         
+         Data:
+         +-----------+-------+
+         |    word   | count |
+         +-----------+-------+
+         |    the    |   36  |
+         |     of    |   24  |
+         |    and    |   18  |
+         |     in    |   17  |
+         |     he    |   10  |
+         |     to    |   9   |
+         | chihuahua |   7   |
+         |  governor |   6   |
+         |     a     |   6   |
+         |    his    |   5   |
+         +-----------+-------+
+         [225 rows x 2 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    Let's extract the list of most frequent words that appear in both
+Obama's and Barrio's documents. We've so far sorted all words from Obama
+and Barrio's articles by their word frequencies. We will now use a
+dataframe operation known as \textbf{join}. The \textbf{join} operation
+is very useful when it comes to playing around with data: it lets you
+combine the content of two tables using a shared column (in this case,
+the word column). See
+\href{https://dato.com/products/create/docs/generated/graphlab.SFrame.join.html}{the
+documentation} for more details.
+
+For instance, running
+
+\begin{verbatim}
+obama_words.join(barrio_words, on='word')
+\end{verbatim}
+
+will extract the rows from both tables that correspond to the common
+words.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{combined\PYZus{}words} \PY{o}{=} \PY{n}{obama\PYZus{}words}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{barrio\PYZus{}words}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{combined\PYZus{}words}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} Columns:
+         	word	str
+         	count	int
+         	count.1	int
+         
+         Rows: 56
+         
+         Data:
+         +------+-------+---------+
+         | word | count | count.1 |
+         +------+-------+---------+
+         | the  |   40  |    36   |
+         |  in  |   30  |    17   |
+         | and  |   21  |    18   |
+         |  of  |   18  |    24   |
+         |  to  |   14  |    9    |
+         | his  |   11  |    5    |
+         |  he  |   7   |    10   |
+         |  a   |   7   |    6    |
+         |  as  |   6   |    5    |
+         | was  |   5   |    4    |
+         +------+-------+---------+
+         [56 rows x 3 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    Since both tables contained the column named \texttt{count}, SFrame
+automatically renamed one of them to prevent confusion. Let's rename the
+columns to tell which one is for which. By inspection, we see that the
+first column (\texttt{count}) is for Obama and the second
+(\texttt{count.1}) for Barrio.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{combined\PYZus{}words} \PY{o}{=} \PY{n}{combined\PYZus{}words}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barrio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{combined\PYZus{}words}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} Columns:
+         	word	str
+         	Obama	int
+         	Barrio	int
+         
+         Rows: 56
+         
+         Data:
+         +------+-------+--------+
+         | word | Obama | Barrio |
+         +------+-------+--------+
+         | the  |   40  |   36   |
+         |  in  |   30  |   17   |
+         | and  |   21  |   18   |
+         |  of  |   18  |   24   |
+         |  to  |   14  |   9    |
+         | his  |   11  |   5    |
+         |  he  |   7   |   10   |
+         |  a   |   7   |   6    |
+         |  as  |   6   |   5    |
+         | was  |   5   |   4    |
+         +------+-------+--------+
+         [56 rows x 3 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    \textbf{Note}. The \textbf{join} operation does not enforce any
+particular ordering on the shared column. So to obtain, say, the five
+common words that appear most often in Obama's article, sort the
+combined table by the Obama column. Don't forget
+\texttt{ascending=False} to display largest counts first.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{combined\PYZus{}words}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} Columns:
+         	word	str
+         	Obama	int
+         	Barrio	int
+         
+         Rows: 56
+         
+         Data:
+         +------+-------+--------+
+         | word | Obama | Barrio |
+         +------+-------+--------+
+         | the  |   40  |   36   |
+         |  in  |   30  |   17   |
+         | and  |   21  |   18   |
+         |  of  |   18  |   24   |
+         |  to  |   14  |   9    |
+         | his  |   11  |   5    |
+         |  he  |   7   |   10   |
+         |  a   |   7   |   6    |
+         |  as  |   6   |   5    |
+         | was  |   5   |   4    |
+         +------+-------+--------+
+         [56 rows x 3 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    \textbf{Quiz Question}. Among the words that appear in both Barack Obama
+and Francisco Barrio, take the 5 that appear most frequently in Obama.
+How many of the articles in the Wikipedia dataset contain all of those 5
+words?
+
+Hint: * Refer to the previous paragraph for finding the words that
+appear in both articles. Sort the common words by their frequencies in
+Obama's article and take the largest five. * Each word count vector is a
+Python dictionary. For each word count vector in SFrame, you'd have to
+check if the set of the 5 common words is a subset of the keys of the
+word count vector. Complete the function \texttt{has\_top\_words} to
+accomplish the task. - Convert the list of top 5 words into set using
+the syntax
+
+\begin{verbatim}
+set(common_words)
+\end{verbatim}
+
+\begin{verbatim}
+where `common_words` is a Python list. See [this link](https://docs.python.org/2/library/stdtypes.html#set) if you're curious about Python sets.
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Extract the list of keys of the word count dictionary by calling the
+  \href{https://docs.python.org/2/library/stdtypes.html\#dict.keys}{\texttt{keys()}
+  method}.
+\item
+  Convert the list of keys into a set as well.
+\item
+  Use
+  \href{https://docs.python.org/2/library/stdtypes.html\#set}{\texttt{issubset()}
+  method} to check if all 5 words are among the keys.
+\item
+  Now apply the \texttt{has\_top\_words} function on every row of the
+  SFrame.
+\item
+  Compute the sum of the result column to obtain the number of articles
+  containing all the 5 top words.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{common\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{obama\PYZus{}words}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{common\PYZus{}words}
+         \PY{k}{def} \PY{n+nf}{has\PYZus{}top\PYZus{}words}\PY{p}{(}\PY{n}{word\PYZus{}count\PYZus{}vector}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} extract the keys of word\PYZus{}count\PYZus{}vector and convert it to a set}
+             \PY{n}{unique\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{word\PYZus{}count\PYZus{}vector}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} return True if common\PYZus{}words is a subset of unique\PYZus{}words}
+             \PY{c+c1}{\PYZsh{} return False otherwise}
+             \PY{k}{return} \PY{n}{common\PYZus{}words}\PY{o}{.}\PY{n}{issubset}\PY{p}{(}\PY{n}{unique\PYZus{}words}\PY{p}{)}
+         
+         \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}top\PYZus{}words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{has\PYZus{}top\PYZus{}words}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} use has\PYZus{}top\PYZus{}words column to answer the quiz question}
+         \PY{k}{print} \PY{n+nb}{str}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}top\PYZus{}words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ out of }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}top\PYZus{}words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ articles have all the top 5 words}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+56066 out of 59071 articles have all the top 5 words
+
+    \end{Verbatim}
+
+    \textbf{Checkpoint}. Check your \texttt{has\_top\_words} function on two
+random articles:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Output from your function:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{has\PYZus{}top\PYZus{}words}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+m+mi}{32}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Correct output: True}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Also check the length of unique\PYZus{}words. It is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+m+mi}{32}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ (should be 167)}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Output from your function: True
+Correct output: True
+Also check the length of unique\_words. It is: 167 (should be 167)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Output from your function:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{has\PYZus{}top\PYZus{}words}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+m+mi}{33}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Correct output: False}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Also check the length of unique\PYZus{}words. It is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+m+mi}{33}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ (should be 188)}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Output from your function: False
+Correct output: False
+Also check the length of unique\_words. It is: 188 (should be 188)
+
+    \end{Verbatim}
+
+    \textbf{Quiz Question}. Measure the pairwise distance between the
+Wikipedia pages of Barack Obama, George W. Bush, and Joe Biden. Which of
+the three pairs has the smallest distance?
+
+Hint: To compute the Euclidean distance between two dictionaries, use
+\texttt{graphlab.toolkits.distances.euclidean}. Refer to
+\href{https://dato.com/products/create/docs/generated/graphlab.toolkits.distances.euclidean.html}{this
+link} for usage.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{calc\PYZus{}euclidean\PYZus{}distance}\PY{p}{(}\PY{n}{name1}\PY{p}{,} \PY{n}{name2}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{graphlab}\PY{o}{.}\PY{n}{distances}\PY{o}{.}\PY{n}{euclidean}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{name1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{name2}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama \PYZlt{}=\PYZgt{} George W. Bush :  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{calc\PYZus{}euclidean\PYZus{}distance}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{George W. Bush}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama \PYZlt{}=\PYZgt{} Joe Biden :  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{calc\PYZus{}euclidean\PYZus{}distance}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Joe Biden}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Joe Biden \PYZlt{}=\PYZgt{} George W. Bush :  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{calc\PYZus{}euclidean\PYZus{}distance}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Joe Biden}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{George W. Bush}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{The smallest distance is between Joe Biden and George W. Bush}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Barack Obama <=> George W. Bush :  34.3947670438
+Barack Obama <=> Joe Biden :  33.0756708171
+Joe Biden <=> George W. Bush :  32.7566787083
+
+The smallest distance is between Joe Biden and George W. Bush
+
+    \end{Verbatim}
+
+    \textbf{Quiz Question}. Collect all words that appear both in Barack
+Obama and George W. Bush pages. Out of those words, find the 10 words
+that show up most often in Obama's page.
+
+    I convert both dictionaries to sets, to be able to use
+Set.intersection(Set). Afterwards I create a new dict which only
+includes the common words.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{obamaSet} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{bushSet} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{George W. Bush}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{subDict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{k}\PY{p}{:}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{obamaSet}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n}{bushSet}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    Create a SFrame to stack the values in a table. Then sort the table by
+word counts and take the top 10.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{vals} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{SArray}\PY{p}{(}\PY{p}{[}\PY{n}{subDict}\PY{p}{]}\PY{p}{)}
+         \PY{n}{sf} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{SFrame}\PY{p}{(}\PY{p}{[}\PY{n}{vals}\PY{p}{]}\PY{p}{)}
+         \PY{n}{word\PYZus{}count\PYZus{}table} \PY{o}{=} \PY{n}{sf}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{new\PYZus{}column\PYZus{}name}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{word\PYZus{}count\PYZus{}table}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} Columns:
+         	word	str
+         	count	int
+         
+         Rows: 10
+         
+         Data:
+         +------+-------+
+         | word | count |
+         +------+-------+
+         | the  |   40  |
+         |  in  |   30  |
+         | and  |   21  |
+         |  of  |   18  |
+         |  to  |   14  |
+         | his  |   11  |
+         | act  |   8   |
+         |  a   |   7   |
+         |  he  |   7   |
+         |  as  |   6   |
+         +------+-------+
+         [10 rows x 2 columns]
+\end{Verbatim}
+            
+    \textbf{Note.} Even though common words are swamping out important
+subtle differences, commonalities in rarer political words still matter
+on the margin. This is why politicians are being listed in the query
+result instead of musicians, for example. In the next subsection, we
+will introduce a different metric that will place greater emphasis on
+those rarer words.
+
+    \subsection{TF-IDF to the rescue}\label{tf-idf-to-the-rescue}
+
+    Much of the perceived commonalities between Obama and Barrio were due to
+occurrences of extremely frequent words, such as "the", "and", and
+"his". So nearest neighbors is recommending plausible results sometimes
+for the wrong reasons.
+
+To retrieve articles that are more relevant, we should focus more on
+rare words that don't happen in every article. \textbf{TF-IDF} (term
+frequency--inverse document frequency) is a feature representation that
+penalizes words that are too common. Let's use GraphLab Create's
+implementation of TF-IDF and repeat the search for the 10 nearest
+neighbors of Barack Obama:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{text\PYZus{}analytics}\PY{o}{.}\PY{n}{tf\PYZus{}idf}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{model\PYZus{}tf\PYZus{}idf} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{nearest\PYZus{}neighbors}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{wiki}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                          \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brute\PYZus{}force}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{distance}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting brute force nearest neighbors model training.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{model\PYZus{}tf\PYZus{}idf}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting pairwise querying.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Query points | # Pairs | % Complete. | Elapsed Time |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 1       | 0.00169288  | 107.167ms    |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 31761   | 53.7675     | 1.11s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Done         |         | 100         | 2.02s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} Columns:
+         	query\_label	str
+         	reference\_label	str
+         	distance	float
+         	rank	int
+         
+         Rows: 10
+         
+         Data:
+         +--------------+-------------------------+---------------+------+
+         | query\_label  |     reference\_label     |    distance   | rank |
+         +--------------+-------------------------+---------------+------+
+         | Barack Obama |       Barack Obama      |      0.0      |  1   |
+         | Barack Obama |      Phil Schiliro      | 106.861013691 |  2   |
+         | Barack Obama |      Jeff Sessions      | 108.871674216 |  3   |
+         | Barack Obama |  Jesse Lee (politician) | 109.045697909 |  4   |
+         | Barack Obama |      Samantha Power     | 109.108106165 |  5   |
+         | Barack Obama |       Bob Menendez      | 109.781867105 |  6   |
+         | Barack Obama | Eric Stern (politician) |  109.95778808 |  7   |
+         | Barack Obama |      James A. Guest     | 110.413888718 |  8   |
+         | Barack Obama |   Roland Grossenbacher  |  110.4706087  |  9   |
+         | Barack Obama |      Tulsi Gabbard      | 110.696997999 |  10  |
+         +--------------+-------------------------+---------------+------+
+         [10 rows x 4 columns]
+\end{Verbatim}
+            
+    Let's determine whether this list makes sense. * With a notable
+exception of Roland Grossenbacher, the other 8 are all American
+politicians who are contemporaries of Barack Obama. * Phil Schiliro,
+Jesse Lee, Samantha Power, and Eric Stern worked for Obama.
+
+Clearly, the results are more plausible with the use of TF-IDF. Let's
+take a look at the word vector for Obama and Schilirio's pages. Notice
+that TF-IDF representation assigns a weight to each word. This weight
+captures relative importance of that word in the document. Let us sort
+the words in Obama's article by their TF-IDF weights; we do the same for
+Schiliro's article as well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{top\PYZus{}words\PYZus{}tf\PYZus{}idf}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+             \PY{n}{row} \PY{o}{=} \PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{name}\PY{p}{]}
+             \PY{n}{word\PYZus{}count\PYZus{}table} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{new\PYZus{}column\PYZus{}name}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{word\PYZus{}count\PYZus{}table}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{obama\PYZus{}tf\PYZus{}idf} \PY{o}{=} \PY{n}{top\PYZus{}words\PYZus{}tf\PYZus{}idf}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{obama\PYZus{}tf\PYZus{}idf}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} Columns:
+         	word	str
+         	weight	float
+         
+         Rows: 273
+         
+         Data:
+         +-------------+---------------+
+         |     word    |     weight    |
+         +-------------+---------------+
+         |    obama    | 43.2956530721 |
+         |     act     |  27.678222623 |
+         |     iraq    |  17.747378588 |
+         |   control   | 14.8870608452 |
+         |     law     | 14.7229357618 |
+         |   ordered   | 14.5333739509 |
+         |   military  | 13.1159327785 |
+         | involvement | 12.7843852412 |
+         |   response  | 12.7843852412 |
+         |  democratic | 12.4106886973 |
+         +-------------+---------------+
+         [273 rows x 2 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{schiliro\PYZus{}tf\PYZus{}idf} \PY{o}{=} \PY{n}{top\PYZus{}words\PYZus{}tf\PYZus{}idf}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Phil Schiliro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{schiliro\PYZus{}tf\PYZus{}idf}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} Columns:
+         	word	str
+         	weight	float
+         
+         Rows: 119
+         
+         Data:
+         +-----------------+---------------+
+         |       word      |     weight    |
+         +-----------------+---------------+
+         |     schiliro    | 21.9729907785 |
+         |      staff      | 15.8564416352 |
+         |  congressional  | 13.5470876563 |
+         | daschleschiliro | 10.9864953892 |
+         |      obama      | 9.62125623824 |
+         |      waxman     | 9.04058524017 |
+         |    president    | 9.03358661416 |
+         |     2014from    | 8.68391029623 |
+         |       law       | 7.36146788088 |
+         |    consultant   | 6.91310403725 |
+         +-----------------+---------------+
+         [119 rows x 2 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    Using the \textbf{join} operation we learned earlier, try your hands at
+computing the common words shared by Obama's and Schiliro's articles.
+Sort the common words by their TF-IDF weights in Obama's document.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{joined} \PY{o}{=} \PY{n}{obama\PYZus{}tf\PYZus{}idf}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{schiliro\PYZus{}tf\PYZus{}idf}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{word}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{joined} \PY{o}{=} \PY{n}{joined}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Schiliro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{joined}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} Columns:
+         	word	str
+         	Obama	float
+         	Schiliro	float
+         
+         Rows: 47
+         
+         Data:
+         +--------------+---------------+---------------+
+         |     word     |     Obama     |    Schiliro   |
+         +--------------+---------------+---------------+
+         |    obama     | 43.2956530721 | 9.62125623824 |
+         |     law      | 14.7229357618 | 7.36146788088 |
+         |  democratic  | 12.4106886973 | 6.20534434867 |
+         |    senate    | 10.1642881797 |  3.3880960599 |
+         | presidential |  7.3869554189 | 3.69347770945 |
+         |  president   | 7.22686929133 | 9.03358661416 |
+         |    policy    | 6.09538628214 | 3.04769314107 |
+         |    states    | 5.47320098963 | 1.82440032988 |
+         |    office    | 5.24817282322 | 2.62408641161 |
+         |     2011     | 5.10704127031 | 3.40469418021 |
+         +--------------+---------------+---------------+
+         [47 rows x 3 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    The first 10 words should say: Obama, law, democratic, Senate,
+presidential, president, policy, states, office, 2011.
+
+    \textbf{Quiz Question}. Among the words that appear in both Barack Obama
+and Phil Schiliro, take the 5 that have largest weights in Obama. How
+many of the articles in the Wikipedia dataset contain all of those 5
+words?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{common\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{joined}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{has\PYZus{}top\PYZus{}words}\PY{p}{(}\PY{n}{word\PYZus{}count\PYZus{}vector}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} extract the keys of word\PYZus{}count\PYZus{}vector and convert it to a set}
+             \PY{n}{unique\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{word\PYZus{}count\PYZus{}vector}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} return True if common\PYZus{}words is a subset of unique\PYZus{}words}
+             \PY{c+c1}{\PYZsh{} return False otherwise}
+             \PY{k}{return} \PY{n}{common\PYZus{}words}\PY{o}{.}\PY{n}{issubset}\PY{p}{(}\PY{n}{unique\PYZus{}words}\PY{p}{)}
+         
+         \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}top\PYZus{}words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{has\PYZus{}top\PYZus{}words}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} use has\PYZus{}top\PYZus{}words column to answer the quiz question}
+         \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}top\PYZus{}words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 14
+\end{Verbatim}
+            
+    Notice the huge difference in this calculation using TF-IDF scores
+instead of raw word counts. We've eliminated noise arising from
+extremely common words.
+
+    \subsection{Choosing metrics}\label{choosing-metrics}
+
+    You may wonder why Joe Biden, Obama's running mate in two presidential
+elections, is missing from the query results of \texttt{model\_tf\_idf}.
+Let's find out why. First, compute the distance between TF-IDF features
+of Obama and Biden.
+
+    \textbf{Quiz Question}. Compute the Euclidean distance between TF-IDF
+features of Obama and Biden. Hint: When using Boolean filter in
+SFrame/SArray, take the index 0 to access the first match.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{def} \PY{n+nf}{calc\PYZus{}tfidf\PYZus{}euclidean\PYZus{}distance}\PY{p}{(}\PY{n}{name1}\PY{p}{,} \PY{n}{name2}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{graphlab}\PY{o}{.}\PY{n}{distances}\PY{o}{.}\PY{n}{euclidean}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{name1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{name2}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Distance between td idf feature of Obama and Biden: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{calc\PYZus{}tfidf\PYZus{}euclidean\PYZus{}distance}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Barack Obama}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Joe Biden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Distance between td idf feature of Obama and Biden: 123.29745601
+
+    \end{Verbatim}
+
+    The distance is larger than the distances we found for the 10 nearest
+neighbors, which we repeat here for readability:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{model\PYZus{}tf\PYZus{}idf}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting pairwise querying.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Query points | # Pairs | % Complete. | Elapsed Time |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 1       | 0.00169288  | 70.078ms     |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 51632   | 87.4067     | 1.07s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Done         |         | 100         | 1.29s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} Columns:
+         	query\_label	str
+         	reference\_label	str
+         	distance	float
+         	rank	int
+         
+         Rows: 10
+         
+         Data:
+         +--------------+-------------------------+---------------+------+
+         | query\_label  |     reference\_label     |    distance   | rank |
+         +--------------+-------------------------+---------------+------+
+         | Barack Obama |       Barack Obama      |      0.0      |  1   |
+         | Barack Obama |      Phil Schiliro      | 106.861013691 |  2   |
+         | Barack Obama |      Jeff Sessions      | 108.871674216 |  3   |
+         | Barack Obama |  Jesse Lee (politician) | 109.045697909 |  4   |
+         | Barack Obama |      Samantha Power     | 109.108106165 |  5   |
+         | Barack Obama |       Bob Menendez      | 109.781867105 |  6   |
+         | Barack Obama | Eric Stern (politician) |  109.95778808 |  7   |
+         | Barack Obama |      James A. Guest     | 110.413888718 |  8   |
+         | Barack Obama |   Roland Grossenbacher  |  110.4706087  |  9   |
+         | Barack Obama |      Tulsi Gabbard      | 110.696997999 |  10  |
+         +--------------+-------------------------+---------------+------+
+         [10 rows x 4 columns]
+\end{Verbatim}
+            
+    But one may wonder, is Biden's article that different from Obama's, more
+so than, say, Schiliro's? It turns out that, when we compute nearest
+neighbors using the Euclidean distances, we unwittingly favor short
+articles over long ones. Let us compute the length of each Wikipedia
+document, and examine the document lengths for the 100 nearest neighbors
+to Obama's page.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{def} \PY{n+nf}{compute\PYZus{}length}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{wiki}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{compute\PYZus{}length}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{nearest\PYZus{}neighbors\PYZus{}euclidean} \PY{o}{=} \PY{n}{model\PYZus{}tf\PYZus{}idf}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{nearest\PYZus{}neighbors\PYZus{}euclidean} \PY{o}{=} \PY{n}{nearest\PYZus{}neighbors\PYZus{}euclidean}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reference\PYZus{}label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting pairwise querying.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Query points | # Pairs | % Complete. | Elapsed Time |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 1       | 0.00169288  | 36.516ms     |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 58354   | 98.7862     | 1.06s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Done         |         | 100         | 1.15s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{nearest\PYZus{}neighbors\PYZus{}euclidean}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} Columns:
+         	query\_label	str
+         	reference\_label	str
+         	distance	float
+         	rank	int
+         	length	int
+         
+         Rows: 100
+         
+         Data:
+         +--------------+-------------------------+---------------+------+--------+
+         | query\_label  |     reference\_label     |    distance   | rank | length |
+         +--------------+-------------------------+---------------+------+--------+
+         | Barack Obama |       Barack Obama      |      0.0      |  1   |  540   |
+         | Barack Obama |      Phil Schiliro      | 106.861013691 |  2   |  208   |
+         | Barack Obama |      Jeff Sessions      | 108.871674216 |  3   |  230   |
+         | Barack Obama |  Jesse Lee (politician) | 109.045697909 |  4   |  216   |
+         | Barack Obama |      Samantha Power     | 109.108106165 |  5   |  310   |
+         | Barack Obama |       Bob Menendez      | 109.781867105 |  6   |  220   |
+         | Barack Obama | Eric Stern (politician) |  109.95778808 |  7   |  255   |
+         | Barack Obama |      James A. Guest     | 110.413888718 |  8   |  215   |
+         | Barack Obama |   Roland Grossenbacher  |  110.4706087  |  9   |  201   |
+         | Barack Obama |      Tulsi Gabbard      | 110.696997999 |  10  |  228   |
+         +--------------+-------------------------+---------------+------+--------+
+         [100 rows x 5 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    To see how these document lengths compare to the lengths of other
+documents in the corpus, let's make a histogram of the document lengths
+of Obama's 100 nearest neighbors and compare to a histogram of document
+lengths for all documents.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{,}\PY{l+m+mf}{4.5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire Wikipedia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{nearest\PYZus{}neighbors\PYZus{}euclidean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{100 NNs of Obama (Euclidean)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}
+                    \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Joe Biden}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}
+                    \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of Joe Biden}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.04}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution of document length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{} of words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Relative to the rest of Wikipedia, nearest neighbors of Obama are
+overwhemingly short, most of them being shorter than 300 words. The bias
+towards short articles is not appropriate in this application as there
+is really no reason to favor short articles over long articles (they are
+all Wikipedia articles, after all). Many of the Wikipedia articles are
+300 words or more, and both Obama and Biden are over 300 words long.
+
+\textbf{Note}: For the interest of computation time, the dataset given
+here contains \emph{excerpts} of the articles rather than full text. For
+instance, the actual Wikipedia article about Obama is around 25000
+words. Do not be surprised by the low numbers shown in the histogram.
+
+    \textbf{Note:} Both word-count features and TF-IDF are proportional to
+word frequencies. While TF-IDF penalizes very common words, longer
+articles tend to have longer TF-IDF vectors simply because they have
+more words in them.
+
+    To remove this bias, we turn to \textbf{cosine distances}: \[
+d(\mathbf{x},\mathbf{y}) = 1 - \frac{\mathbf{x}^T\mathbf{y}}{\|\mathbf{x}\| \|\mathbf{y}\|}
+\] Cosine distances let us compare word distributions of two articles of
+varying lengths.
+
+Let us train a new nearest neighbor model, this time with cosine
+distances. We then repeat the search for Obama's 100 nearest neighbors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{model2\PYZus{}tf\PYZus{}idf} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{nearest\PYZus{}neighbors}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{wiki}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                           \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brute\PYZus{}force}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{distance}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cosine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting brute force nearest neighbors model training.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{nearest\PYZus{}neighbors\PYZus{}cosine} \PY{o}{=} \PY{n}{model2\PYZus{}tf\PYZus{}idf}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{nearest\PYZus{}neighbors\PYZus{}cosine} \PY{o}{=} \PY{n}{nearest\PYZus{}neighbors\PYZus{}cosine}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reference\PYZus{}label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting pairwise querying.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Query points | # Pairs | % Complete. | Elapsed Time |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 1       | 0.00169288  | 60.061ms     |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 56670   | 95.9354     | 1.06s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Done         |         | 100         | 1.18s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{nearest\PYZus{}neighbors\PYZus{}cosine}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} Columns:
+         	query\_label	str
+         	reference\_label	str
+         	distance	float
+         	rank	int
+         	length	int
+         
+         Rows: 100
+         
+         Data:
+         +--------------+-------------------------+----------------+------+--------+
+         | query\_label  |     reference\_label     |    distance    | rank | length |
+         +--------------+-------------------------+----------------+------+--------+
+         | Barack Obama |       Barack Obama      |      0.0       |  1   |  540   |
+         | Barack Obama |        Joe Biden        | 0.703138676734 |  2   |  414   |
+         | Barack Obama |      Samantha Power     | 0.742981902328 |  3   |  310   |
+         | Barack Obama |  Hillary Rodham Clinton | 0.758358397887 |  4   |  580   |
+         | Barack Obama | Eric Stern (politician) | 0.770561227601 |  5   |  255   |
+         | Barack Obama |       Robert Gibbs      | 0.784677504751 |  6   |  257   |
+         | Barack Obama |       Eric Holder       | 0.788039072943 |  7   |  232   |
+         | Barack Obama |  Jesse Lee (politician) | 0.790926415366 |  8   |  216   |
+         | Barack Obama |       Henry Waxman      | 0.798322602893 |  9   |  279   |
+         | Barack Obama |     Joe the Plumber     | 0.799466360042 |  10  |  217   |
+         +--------------+-------------------------+----------------+------+--------+
+         [100 rows x 5 columns]
+         Note: Only the head of the SFrame is printed.
+         You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    From a glance at the above table, things look better. For example, we
+now see Joe Biden as Barack Obama's nearest neighbor! We also see
+Hillary Clinton on the list. This list looks even more plausible as
+nearest neighbors of Barack Obama.
+
+Let's make a plot to better visualize the effect of having used cosine
+distance in place of Euclidean on our TF-IDF vectors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{,}\PY{l+m+mf}{4.5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{,}\PY{l+m+mf}{4.5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entire Wikipedia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{nearest\PYZus{}neighbors\PYZus{}euclidean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{100 NNs of Obama (Euclidean)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{nearest\PYZus{}neighbors\PYZus{}cosine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{100 NNs of Obama (cosine)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}
+                    \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Joe Biden}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}
+                    \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of Joe Biden}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.04}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution of document length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{} of words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<matplotlib.figure.Figure at 0x7f899c549590>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Indeed, the 100 nearest neighbors using cosine distance provide a
+sampling across the range of document lengths, rather than just short
+articles like Euclidean distance provided.
+
+    \textbf{Moral of the story}: In deciding the features and distance
+measures, check if they produce results that make sense for your
+particular application.
+
+    \section{Problem with cosine distances: tweets vs. long
+articles}\label{problem-with-cosine-distances-tweets-vs.-long-articles}
+
+    Happily ever after? Not so fast. Cosine distances ignore all document
+lengths, which may be great in certain situations but not in others. For
+instance, consider the following (admittedly contrived) example.
+
+    \begin{verbatim}
++--------------------------------------------------------+
+|                                             +--------+ |
+|  One that shall not be named                | Follow | |
+|  @username                                  +--------+ |
+|                                                        |
+|  Democratic governments control law in response to     |
+|  popular act.                                          |
+|                                                        |
+|  8:05 AM - 16 May 2016                                 |
+|                                                        |
+|  Reply   Retweet (1,332)   Like (300)                  |
+|                                                        |
++--------------------------------------------------------+
+\end{verbatim}
+
+    How similar is this tweet to Barack Obama's Wikipedia article? Let's
+transform the tweet into TF-IDF features, using an encoder fit to the
+Wikipedia dataset. (That is, let's treat this tweet as an article in our
+Wikipedia dataset and see what happens.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{sf} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{SFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{democratic governments control law in response to popular act}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{sf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{text\PYZus{}analytics}\PY{o}{.}\PY{n}{count\PYZus{}words}\PY{p}{(}\PY{n}{sf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{encoder} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{feature\PYZus{}engineering}\PY{o}{.}\PY{n}{TFIDF}\PY{p}{(}\PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{output\PYZus{}column\PYZus{}prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{encoder}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{wiki}\PY{p}{)}
+         \PY{n}{sf} \PY{o}{=} \PY{n}{encoder}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{sf}\PY{p}{)}
+         \PY{n}{sf}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} Columns:
+         	text	str
+         	word\_count	dict
+         	tf\_idf.word\_count	dict
+         
+         Rows: 1
+         
+         Data:
+         +-------------------------------+-------------------------------+
+         |              text             |           word\_count          |
+         +-------------------------------+-------------------------------+
+         | democratic governments con{\ldots} | \{'control': 1, 'democratic{\ldots} |
+         +-------------------------------+-------------------------------+
+         +-------------------------------+
+         |       tf\_idf.word\_count       |
+         +-------------------------------+
+         | \{'control': 3.721765211295{\ldots} |
+         +-------------------------------+
+         [1 rows x 3 columns]
+\end{Verbatim}
+            
+    Let's look at the TF-IDF vectors for this tweet and for Barack Obama's
+Wikipedia entry, just to visually see their differences.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{tweet\PYZus{}tf\PYZus{}idf} \PY{o}{=} \PY{n}{sf}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf.word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{tweet\PYZus{}tf\PYZus{}idf}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} \{'act': 3.4597778278724887,
+          'control': 3.721765211295327,
+          'democratic': 3.1026721743330414,
+          'governments': 4.167571323949673,
+          'in': 0.0009654063501214492,
+          'law': 2.4538226269605703,
+          'popular': 2.764478952022998,
+          'response': 4.261461747058352,
+          'to': 0.04694493768179923\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{obama} \PY{o}{=} \PY{n}{wiki}\PY{p}{[}\PY{n}{wiki}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barack Obama}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{obama}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} Columns:
+         	URI	str
+         	name	str
+         	text	str
+         	word\_count	dict
+         	has\_top\_words	int
+         	tf\_idf	dict
+         	length	int
+         
+         Rows: Unknown
+         
+         Data:
+         +-------------------------------+--------------+-------------------------------+
+         |              URI              |     name     |              text             |
+         +-------------------------------+--------------+-------------------------------+
+         | <http://dbpedia.org/resour{\ldots} | Barack Obama | barack hussein obama ii br{\ldots} |
+         +-------------------------------+--------------+-------------------------------+
+         +-------------------------------+---------------+-------------------------------+
+         |           word\_count          | has\_top\_words |             tf\_idf            |
+         +-------------------------------+---------------+-------------------------------+
+         | \{'operations': 1, 'represe{\ldots} |       1       | \{'operations': 3.811771079{\ldots} |
+         +-------------------------------+---------------+-------------------------------+
+         +--------+
+         | length |
+         +--------+
+         |  540   |
+         +--------+
+         [? rows x 7 columns]
+         Note: Only the head of the SFrame is printed. This SFrame is lazily evaluated.
+         You can use sf.materialize() to force materialization.
+\end{Verbatim}
+            
+    Now, compute the cosine distance between the Barack Obama article and
+this tweet:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{obama\PYZus{}tf\PYZus{}idf} \PY{o}{=} \PY{n}{obama}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{graphlab}\PY{o}{.}\PY{n}{toolkits}\PY{o}{.}\PY{n}{distances}\PY{o}{.}\PY{n}{cosine}\PY{p}{(}\PY{n}{obama\PYZus{}tf\PYZus{}idf}\PY{p}{,} \PY{n}{tweet\PYZus{}tf\PYZus{}idf}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} 0.7059183777794328
+\end{Verbatim}
+            
+    Let's compare this distance to the distance between the Barack Obama
+article and all of its Wikipedia 10 nearest neighbors:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{model2\PYZus{}tf\PYZus{}idf}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{n}{obama}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Starting pairwise querying.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Query points | # Pairs | % Complete. | Elapsed Time |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 1       | 0.00169288  | 55.192ms     |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 0            | 55140   | 93.3453     | 1.05s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Done         |         | 100         | 1.18s        |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++--------------+---------+-------------+--------------+
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} Columns:
+         	query\_label	str
+         	reference\_label	str
+         	distance	float
+         	rank	int
+         
+         Rows: 10
+         
+         Data:
+         +--------------+-------------------------+----------------+------+
+         | query\_label  |     reference\_label     |    distance    | rank |
+         +--------------+-------------------------+----------------+------+
+         | Barack Obama |       Barack Obama      |      0.0       |  1   |
+         | Barack Obama |        Joe Biden        | 0.703138676734 |  2   |
+         | Barack Obama |      Samantha Power     | 0.742981902328 |  3   |
+         | Barack Obama |  Hillary Rodham Clinton | 0.758358397887 |  4   |
+         | Barack Obama | Eric Stern (politician) | 0.770561227601 |  5   |
+         | Barack Obama |       Robert Gibbs      | 0.784677504751 |  6   |
+         | Barack Obama |       Eric Holder       | 0.788039072943 |  7   |
+         | Barack Obama |  Jesse Lee (politician) | 0.790926415366 |  8   |
+         | Barack Obama |       Henry Waxman      | 0.798322602893 |  9   |
+         | Barack Obama |     Joe the Plumber     | 0.799466360042 |  10  |
+         +--------------+-------------------------+----------------+------+
+         [10 rows x 4 columns]
+\end{Verbatim}
+            
+    With cosine distances, the tweet is "nearer" to Barack Obama than
+everyone else, except for Joe Biden! This probably is not something we
+want. If someone is reading the Barack Obama Wikipedia page, would you
+want to recommend they read this tweet? Ignoring article lengths
+completely resulted in nonsensical results. In practice, it is common to
+enforce maximum or minimum document lengths. After all, when someone is
+reading a long article from \emph{The Atlantic}, you wouldn't recommend
+him/her a tweet.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

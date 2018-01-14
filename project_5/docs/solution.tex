@@ -1,0 +1,1202 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{solution}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k+kn}{import} \PY{n}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{graphlab}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        RuntimeError                              Traceback (most recent call last)
+
+        RuntimeError: module compiled against API version 0xb but this version of numpy is 0xa
+
+    \end{Verbatim}
+
+    \section{task}\label{task}
+
+\begin{itemize}
+\tightlist
+\item
+  Load house sales data: kc\_house\_data.csv.zip
+\item
+  What is the content, could you read it? do you understand collumns?
+\item
+  Explore the data for housing
+\item
+  make scatter plot of selected features
+\item
+  create simple regression model of sqft\_living to price
+\item
+  evaluate a simple model
+\item
+  is linear function good enough? try quadratic polynomial
+\end{itemize}
+
+    Read in the data. Just to check and know all the columns we visualize
+the SFrame. To later be able to add a constant part to the fits, we are
+adding a constant valued column. and for the square fit we create a
+column with the squared values of 'sqft\_living'.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{houses} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{SFrame}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../lectures/data/kc\PYZus{}house\PYZus{}data.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living\PYZus{}sq}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{houses}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+This non-commercial license of GraphLab Create for academic use is assigned to niklas.eicker@rwth-aachen.de and will expire on November 02, 2018.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[INFO] graphlab.cython.cy\_server: GraphLab Create v2.1 started. Logging: /tmp/graphlab\_server\_1513173893.log
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+Finished parsing file /home/nikl/DataScience/lectures/data/kc_house_data.csv
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Parsing completed. Parsed 100 lines in 0.257914 secs.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+------------------------------------------------------
+Inferred types from first 100 line(s) of file as 
+column\_type\_hints=[int,str,float,int,float,int,int,float,int,int,int,int,int,int,int,int,int,float,float,int,int]
+If parsing fails due to incorrect types, you can correct
+the inferred type list above and pass it to read\_csv in
+the column\_type\_hints argument
+------------------------------------------------------
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+Finished parsing file /home/nikl/DataScience/lectures/data/kc_house_data.csv
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Parsing completed. Parsed 21613 lines in 0.263838 secs.
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} Columns:
+        	id	int
+        	date	str
+        	price	float
+        	bedrooms	int
+        	bathrooms	float
+        	sqft\_living	int
+        	sqft\_lot	int
+        	floors	float
+        	waterfront	int
+        	view	int
+        	condition	int
+        	grade	int
+        	sqft\_above	int
+        	sqft\_basement	int
+        	yr\_built	int
+        	yr\_renovated	int
+        	zipcode	int
+        	lat	float
+        	long	float
+        	sqft\_living15	int
+        	sqft\_lot15	int
+        	const	float
+        	sqft\_living\_sq	float
+        
+        Rows: 21613
+        
+        Data:
+        +------------+-----------------+-----------+----------+-----------+-------------+
+        |     id     |       date      |   price   | bedrooms | bathrooms | sqft\_living |
+        +------------+-----------------+-----------+----------+-----------+-------------+
+        | 7129300520 | 20141013T000000 |  221900.0 |    3     |    1.0    |     1180    |
+        | 6414100192 | 20141209T000000 |  538000.0 |    3     |    2.25   |     2570    |
+        | 5631500400 | 20150225T000000 |  180000.0 |    2     |    1.0    |     770     |
+        | 2487200875 | 20141209T000000 |  604000.0 |    4     |    3.0    |     1960    |
+        | 1954400510 | 20150218T000000 |  510000.0 |    3     |    2.0    |     1680    |
+        | 7237550310 | 20140512T000000 | 1225000.0 |    4     |    4.5    |     5420    |
+        | 1321400060 | 20140627T000000 |  257500.0 |    3     |    2.25   |     1715    |
+        | 2008000270 | 20150115T000000 |  291850.0 |    3     |    1.5    |     1060    |
+        | 2414600126 | 20150415T000000 |  229500.0 |    3     |    1.0    |     1780    |
+        | 3793500160 | 20150312T000000 |  323000.0 |    3     |    2.5    |     1890    |
+        +------------+-----------------+-----------+----------+-----------+-------------+
+        +----------+--------+------------+------+-----------+-------+------------+---------------+
+        | sqft\_lot | floors | waterfront | view | condition | grade | sqft\_above | sqft\_basement |
+        +----------+--------+------------+------+-----------+-------+------------+---------------+
+        |   5650   |  1.0   |     0      |  0   |     3     |   7   |    1180    |       0       |
+        |   7242   |  2.0   |     0      |  0   |     3     |   7   |    2170    |      400      |
+        |  10000   |  1.0   |     0      |  0   |     3     |   6   |    770     |       0       |
+        |   5000   |  1.0   |     0      |  0   |     5     |   7   |    1050    |      910      |
+        |   8080   |  1.0   |     0      |  0   |     3     |   8   |    1680    |       0       |
+        |  101930  |  1.0   |     0      |  0   |     3     |   11  |    3890    |      1530     |
+        |   6819   |  2.0   |     0      |  0   |     3     |   7   |    1715    |       0       |
+        |   9711   |  1.0   |     0      |  0   |     3     |   7   |    1060    |       0       |
+        |   7470   |  1.0   |     0      |  0   |     3     |   7   |    1050    |      730      |
+        |   6560   |  2.0   |     0      |  0   |     3     |   7   |    1890    |       0       |
+        +----------+--------+------------+------+-----------+-------+------------+---------------+
+        +----------+--------------+---------+---------+----------+---------------+-----+
+        | yr\_built | yr\_renovated | zipcode |   lat   |   long   | sqft\_living15 | {\ldots} |
+        +----------+--------------+---------+---------+----------+---------------+-----+
+        |   1955   |      0       |  98178  | 47.5112 | -122.257 |      1340     | {\ldots} |
+        |   1951   |     1991     |  98125  |  47.721 | -122.319 |      1690     | {\ldots} |
+        |   1933   |      0       |  98028  | 47.7379 | -122.233 |      2720     | {\ldots} |
+        |   1965   |      0       |  98136  | 47.5208 | -122.393 |      1360     | {\ldots} |
+        |   1987   |      0       |  98074  | 47.6168 | -122.045 |      1800     | {\ldots} |
+        |   2001   |      0       |  98053  | 47.6561 | -122.005 |      4760     | {\ldots} |
+        |   1995   |      0       |  98003  | 47.3097 | -122.327 |      2238     | {\ldots} |
+        |   1963   |      0       |  98198  | 47.4095 | -122.315 |      1650     | {\ldots} |
+        |   1960   |      0       |  98146  | 47.5123 | -122.337 |      1780     | {\ldots} |
+        |   2003   |      0       |  98038  | 47.3684 | -122.031 |      2390     | {\ldots} |
+        +----------+--------------+---------+---------+----------+---------------+-----+
+        [21613 rows x 23 columns]
+        Note: Only the head of the SFrame is printed.
+        You can use print\_rows(num\_rows=m, num\_columns=n) to print more rows and columns.
+\end{Verbatim}
+            
+    Create a scatter plot of house price and sqft\_living.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{graphlab}\PY{o}{.}\PY{n}{canvas}\PY{o}{.}\PY{n}{set\PYZus{}target}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ipynb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{houses}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{n}{view}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scatter Plot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}living}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    We will do the linear and quadratic fit on one feature (sqft\_living)
+with graphlab.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{sqft\PYZus{}model\PYZus{}lin} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{linear\PYZus{}regression}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{houses}\PY{p}{,} \PY{n}{validation\PYZus{}set}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{target}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Linear regression:
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of examples          : 21613
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of features          : 1
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of unpacked features : 1
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of coefficients    : 2
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Starting Newton Method
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Iteration | Passes   | Elapsed Time | Training-max_error | Training-rmse |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 1         | 2        | 1.063856     | 4362074.683616     | 261440.790302 |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+SUCCESS: Optimal solution found.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+    \end{verbatim}
+
+    
+    Now a model that takes the squared value of 'sqft\_living' into account.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{sqft\PYZus{}model\PYZus{}quad} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{linear\PYZus{}regression}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{houses}\PY{p}{,} \PY{n}{validation\PYZus{}set}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{target}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living\PYZus{}sq}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Linear regression:
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of examples          : 21613
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of features          : 2
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of unpacked features : 2
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of coefficients    : 3
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Starting Newton Method
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Iteration | Passes   | Elapsed Time | Training-max_error | Training-rmse |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 1         | 2        | 0.075018     | 5913021.143248     | 250948.367620 |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+SUCCESS: Optimal solution found.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} RMS of the lin fit}
+        \PY{k}{print} \PY{n}{sqft\PYZus{}model\PYZus{}lin}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{houses}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'max\_error': 4362074.683615588, 'rmse': 261440.79030169296\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} RMS of the quadratic fit}
+        \PY{k}{print} \PY{n}{sqft\PYZus{}model\PYZus{}quad}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{houses}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'max\_error': 5913021.143247618, 'rmse': 250948.36761971583\}
+
+    \end{Verbatim}
+
+    RMS of the quadratic method is a little bit better then the linear one,
+but still very big compared to the values.
+
+    \section{task}\label{task}
+
+\begin{itemize}
+\tightlist
+\item
+  Split your data into training sample and test sample
+\item
+  what is trainign error and testing error of your model?
+\item
+  predict the house price for a given sqft\_living
+\item
+  predict the sqft\_living for a given price of the house
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{training} \PY{p}{,} \PY{n}{testing}  \PY{o}{=} \PY{n}{houses}\PY{o}{.}\PY{n}{random\PYZus{}split}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    recalculte our linear model on the test data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{sqft\PYZus{}model\PYZus{}lin} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{linear\PYZus{}regression}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{training}\PY{p}{,} \PY{n}{validation\PYZus{}set}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{target}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Linear regression:
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of examples          : 17384
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of features          : 1
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of unpacked features : 1
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of coefficients    : 2
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Starting Newton Method
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Iteration | Passes   | Elapsed Time | Training-max_error | Training-rmse |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 1         | 2        | 0.045954     | 4349521.915863     | 262943.613519 |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+---------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+SUCCESS: Optimal solution found.
+    \end{verbatim}
+
+    
+    Now compare the rms on training data with the rms on test data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{sqft\PYZus{}model\PYZus{}lin}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{training}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{testing: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{sqft\PYZus{}model\PYZus{}lin}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{testing}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+training: 262943.613519
+testing: 255191.027487
+
+    \end{Verbatim}
+
+    The errors are comparable...
+
+    \subsection{Methods to predict prices and sqft\_living with the fit
+parameters.}\label{methods-to-predict-prices-and-sqftux5fliving-with-the-fit-parameters.}
+
+roots helps solving fot the sqft\_living values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}house\PYZus{}price}\PY{p}{(}\PY{n}{sqft\PYZus{}living}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{(}\PY{n}{sqft\PYZus{}model\PYZus{}lin}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{sqft\PYZus{}model\PYZus{}lin}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{sqft\PYZus{}living}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}house\PYZus{}sqft}\PY{p}{(}\PY{n}{price}\PY{p}{)}\PY{p}{:}
+             \PY{n}{coeff} \PY{o}{=} \PY{p}{[}\PY{n}{sqft\PYZus{}model\PYZus{}lin}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{n}{sqft\PYZus{}model\PYZus{}lin}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{price}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{roots}\PY{p}{(}\PY{n}{coeff}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predict house sqft\PYZus{}living for prices:}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    500.000 :   }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}sqft}\PY{p}{(}\PY{l+m+mi}{500000}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    1.000.000 : }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}sqft}\PY{p}{(}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    1.500.000 : }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}sqft}\PY{p}{(}\PY{l+m+mi}{1500000}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    2.500.000 : }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}sqft}\PY{p}{(}\PY{l+m+mi}{2500000}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+predict house sqft\_living for prices:
+    500.000 :   1940.41067055
+    1.000.000 : 3713.72536216
+    1.500.000 : 5487.04005378
+    2.500.000 : 9033.66943701
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predict house prices for given sqft:}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    1000 : }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}price}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    2000 : }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}price}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    3000 : }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}price}\PY{p}{(}\PY{l+m+mi}{3000}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    4000 : }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}price}\PY{p}{(}\PY{l+m+mi}{4000}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+predict house prices for given sqft:
+    1000 : 234843.82806
+    2000 : 516801.679289
+    3000 : 798759.530518
+    4000 : 1080717.38175
+
+    \end{Verbatim}
+
+    \section{task}\label{task}
+
+\begin{itemize}
+\tightlist
+\item
+  add more feaures
+\item
+  is the model better now?
+\item
+  maybe using range of data would work better?
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{sqft\PYZus{}model} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{linear\PYZus{}regression}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{training}\PY{p}{,} \PY{n}{target}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yr\PYZus{}built}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{sqft\PYZus{}model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{training}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+PROGRESS: Creating a validation set from 5 percent of training data. This may take a while.
+          You can set ``validation\_set=None`` to disable validation tracking.
+
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+Linear regression:
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of examples          : 16450
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of features          : 4
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of unpacked features : 4
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of coefficients    : 5
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Starting Newton Method
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+----------------------+---------------+-----------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Iteration | Passes   | Elapsed Time | Training-max_error | Validation-max_error | Training-rmse | Validation-rmse |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+----------------------+---------------+-----------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 1         | 2        | 0.106160     | 4502064.109799     | 2987342.356958       | 231173.726894 | 249400.948630   |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+----------------------+---------------+-----------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+SUCCESS: Optimal solution found.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} \{'max\_error': 4502064.109799153, 'rmse': 232189.4072274167\}
+\end{Verbatim}
+            
+    Yes more featerues lowered our error, but it is still quite high.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{range\PYZus{}houses} \PY{o}{=} \PY{n}{houses}\PY{p}{[}\PY{p}{(}\PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2000000}\PY{p}{)}\PY{p}{]}
+         \PY{n}{range\PYZus{}training} \PY{p}{,} \PY{n}{range\PYZus{}testing}  \PY{o}{=} \PY{n}{range\PYZus{}houses}\PY{o}{.}\PY{n}{random\PYZus{}split}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{sqft\PYZus{}model\PYZus{}selected} \PY{o}{=} \PY{n}{graphlab}\PY{o}{.}\PY{n}{linear\PYZus{}regression}\PY{o}{.}\PY{n}{create}\PY{p}{(}\PY{n}{range\PYZus{}training}\PY{p}{,} \PY{n}{target}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{features}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yr\PYZus{}built}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{sqft\PYZus{}model\PYZus{}selected}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{range\PYZus{}training}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+PROGRESS: Creating a validation set from 5 percent of training data. This may take a while.
+          You can set ``validation\_set=None`` to disable validation tracking.
+
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+Linear regression:
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of examples          : 16302
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of features          : 4
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of unpacked features : 4
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Number of coefficients    : 5
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+Starting Newton Method
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+--------------------------------------------------------
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+----------------------+---------------+-----------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| Iteration | Passes   | Elapsed Time | Training-max_error | Validation-max_error | Training-rmse | Validation-rmse |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+----------------------+---------------+-----------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+| 1         | 2        | 0.104579     | 1330911.700288     | 983736.696828        | 179574.569470 | 176405.758368   |
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
++-----------+----------+--------------+--------------------+----------------------+---------------+-----------------+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+SUCCESS: Optimal solution found.
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} \{'max\_error': 1330911.7002882427, 'rmse': 179424.43561122433\}
+\end{Verbatim}
+            
+    on our limited range for prices \textless{} 2mil and sqft\_living
+\textless{} 5000 the model works much better! On the other hand the
+points are now also closer together anyways.
+
+    \section{task}\label{task}
+
+\begin{itemize}
+\tightlist
+\item
+  predict house price for a house id = 5309101299 (does not exists!
+  using 2008000270 instead)
+\item
+  what is this house like?
+\item
+  predict house price for a house id = 1925069082
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{houses}\PY{p}{[}\PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2008000270}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} Columns:
+         	id	int
+         	date	str
+         	price	float
+         	bedrooms	int
+         	bathrooms	float
+         	sqft\_living	int
+         	sqft\_lot	int
+         	floors	float
+         	waterfront	int
+         	view	int
+         	condition	int
+         	grade	int
+         	sqft\_above	int
+         	sqft\_basement	int
+         	yr\_built	int
+         	yr\_renovated	int
+         	zipcode	int
+         	lat	float
+         	long	float
+         	sqft\_living15	int
+         	sqft\_lot15	int
+         	const	float
+         	sqft\_living\_sq	float
+         
+         Rows: Unknown
+         
+         Data:
+         +------------+-----------------+----------+----------+-----------+-------------+
+         |     id     |       date      |  price   | bedrooms | bathrooms | sqft\_living |
+         +------------+-----------------+----------+----------+-----------+-------------+
+         | 2008000270 | 20150115T000000 | 291850.0 |    3     |    1.5    |     1060    |
+         +------------+-----------------+----------+----------+-----------+-------------+
+         +----------+--------+------------+------+-----------+-------+------------+---------------+
+         | sqft\_lot | floors | waterfront | view | condition | grade | sqft\_above | sqft\_basement |
+         +----------+--------+------------+------+-----------+-------+------------+---------------+
+         |   9711   |  1.0   |     0      |  0   |     3     |   7   |    1060    |       0       |
+         +----------+--------+------------+------+-----------+-------+------------+---------------+
+         +----------+--------------+---------+---------+----------+---------------+-----+
+         | yr\_built | yr\_renovated | zipcode |   lat   |   long   | sqft\_living15 | {\ldots} |
+         +----------+--------------+---------+---------+----------+---------------+-----+
+         |   1963   |      0       |  98198  | 47.4095 | -122.315 |      1650     | {\ldots} |
+         +----------+--------------+---------+---------+----------+---------------+-----+
+         [? rows x 23 columns]
+         Note: Only the head of the SFrame is printed. This SFrame is lazily evaluated.
+         You can use sf.materialize() to force materialization.
+\end{Verbatim}
+            
+    \subsection{house nr 2008000270}\label{house-nr-2008000270}
+
+It is a rather small house, with 1060 sqft living and only one floor.
+The price is one of the lowest of the dataset with 291850 dollar. There
+are 3 bedrooms and 1.5(?!) bathrooms. This house was build in 1963.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predict price of house nr. 1925069082}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{         predicted: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{get\PYZus{}house\PYZus{}price}\PY{p}{(}\PY{n}{houses}\PY{p}{[}\PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1925069082}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{              real: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{houses}\PY{p}{[}\PY{n}{houses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1925069082}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+predict price of house nr. 1925069082
+         predicted: 1261170.40653
+              real: 2200000.0
+
+    \end{Verbatim}
+
+    The prediciton for the price is only \textasciitilde{}6\% off
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
