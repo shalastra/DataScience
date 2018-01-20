@@ -1,0 +1,146 @@
+\documentclass[12pt]{scrreprt}
+
+\input{head.tex}
+
+
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+
+
+
+
+\usepackage[scaled]{beramono}
+
+\lstset{
+  language=Python
+}
+\usepackage{enumitem}
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+
+
+\begin{document}
+%\titlehead{}
+\subject{Data Science}
+\title{Documentation}
+\subtitle{Nearest Neighbors - Advanced (LSH)}
+\author{}
+\date{\large{\today}}
+\publishers{Eicker Niklas, Halastra Szymon}
+%\extratitle{\centering Schmutztitel}
+%\uppertitleback{Obiger Titelrückentitel}
+%\lowertitleback{Unterer Rückseitentitel}
+%\dedication{Rückseite der Titelseite}
+\maketitle
+\tableofcontents
+
+
+
+\chapter{Introduction} 
+\label{chpt:intro}
+
+Using GraphLab Create we will load and analyze data on Wikipedia articles about persons. In this advanced project we will use Locality Sensitive Hashing (LSH) to achieve fast and efficient approximate nearest neighbor searches.
+
+\section{The data set}
+\label{sec:data}
+
+Each element of the original data set consists of a link to a Wikipedia article, the name of the person it is about and the text of the article (in lowercase and without punctuation). There are 59071 entries in total. An excerpt of the data "as is" can be seen in figure \ref{fig:dataset_raw}.\\
+
+
+\begin{figure}[H]
+  \begin{center}
+    \caption{Excerpt of the data set.}
+    \label{fig:dataset_raw}
+    \includegraphics[width=0.8\textwidth, angle=0]{raw_data.jpg}
+  \end{center}
+\end{figure}
+
+\chapter{Data preparation}
+\label{chpt:tasks}
+
+As preparation we add a new column to the data set containing the TF-IDF values as well as a row count acting as unique article ID.\\
+
+The GraphLab Create method 'text\_analytics.tf\_idf' calculates TF-IDF values for all our articles. Adding the ID id done via an in-build method of the SFrame 'add\_row\_number'. A short preview of the modified data set can bee seen in figure \ref{fig:dataset}.\\
+
+\begin{figure}[H]
+  \begin{center}
+    \caption{Preview of the data set with an additional column for TF-IDF and unique IDs.}
+    \label{fig:dataset}
+    \includegraphics[width=0.95\textwidth, angle=0]{db_wiki_word_counts_and_id.jpg}
+  \end{center}
+\end{figure}
+
+For the rest of the assignment we will use sparse matrices instead of the SFrame. A sparse matrix is a matrix with only a few non zero elements. SciPy supports this format and allows us to easily handle our TF-IDF values in matrix form. First we have to convert the original dictionary structure to the new SciPy sparse matrix format.\\
+
+We transform the TF-IDF dictionaries in one 59071 x 547979 sparse matrix, where each row is a document and each column a word. Now every document has a TF-IDF value for every word in any document. If the word does not appear in the document, which is the case for most words, the value is zero.\\
+
+
+\chapter{Locality Sensitive Hashing}
+
+LSH is a hashing method that aims to maximize the probability of a "collision" for similar items. Via randomly generated vectors we will assign each document to a specific bin. The number of these bins will be chosen in a way, that the bin of a queried document and it's surrounding bins include the "real" nearest neighbors. Due to the, compared to the complete sample, smaller amount of all of these documents in close bins, it will be possible to calculate the closest neighbors much faster then by brute force.\\
+
+
+\section{Sorting data into bins}
+For the beginning we have to decide on a number of random vectors. This number will define the number of bins. With each vector we will generate one bit for every document by multiplying it with the document's TF-IDF vector and checking the sign of the solution. Each unique combination of bits represents one data bin.\\
+
+We create 16 Gaussian random vectors, which will yield $2^16$ (65536) bins to sort our data into. In this case the number of bins is comparable to the number of documents in the data set.\\
+
+Each scalar product with a document and all random vectors gives us an array of Boolean with the length of 16 (= number of vectors). We can transform this array into an ID for the corresponding bin, by taking it as a 16-bit binary number and calculating it's single integer value. At this point we have sorted all our documents into bins and can start to compare single documents to other documents inside the same bin or surrounding bins.\\
+
+\newpage
+\section{First evaluation of a LSH model}
+With every document in it's corresponding bin, we can take a look at the actual "closeness" of documents in the same and surrounding bins. To measure the closeness we will be using the cosine distance, which was closer investigated in the primer task.\\
+
+As an example we will (again) be using the Wikipedia page of Barack Obama. In Obama's bin there are five other pages. Table \ref{tab:compare_top_words} lists the others names and cosine distances to Barack Obama's article. As we can see, most of them are far away from Barack Obama. It is obvious, that LSH is just an approximation and one has to consider documents from surrounding bins to find the nearest neighbors.
+
+\begin{table}[H]
+  \caption{Comparison of the documents that share the same bin as Back Obama's article.}
+  \label{tab:compare_top_words}
+  \begin{center}
+    \begin{tabular}{| c | c | c |}
+      \hline
+      \textbf{Rank} & \textbf{Name} & \textbf{Distance to Obama}\\
+      \hline
+      \hline
+      1 & Joe Biden & 0.703139 \\ \hline
+      2 & Mark Boulware & 0.950867 \\ \hline
+      3 & John Wells (politician) & 0.975966 \\ \hline
+      4 & Francis Longstaff & 0.978256 \\ \hline
+      5 & Madurai T. Srinivasan & 0.993092 \\ \hline
+    \end{tabular}	
+  \end{center}
+\end{table}
+
+\chapter{Querying the LSH model}
+\section{Structure of a query}
+In the previous chapter we found that a query of our model will have to take surrounding bins into account. One can define a range for such a query as the number of different bits in the bins bit representations. Such a query with the range 3 will look like this:\\
+\begin{center}
+\begin{enumerate}
+\item[1.] Let L be the bit representation of the bin that contains the query documents.
+\item[2.] Consider all documents in bin L.
+\item[3.] Consider documents in the bins whose bit representation differs from L by 1 bit.
+\item[4.] Consider documents in the bins whose bit representation differs from L by 2 bits.
+\item[5.] Consider documents in the bins whose bit representation differs from L by 3 bits.
+\end{enumerate}
+\end{center}
+
+\section{Query implementation}
+For an easy implementation of the query, we use "itertools.combinations". This method takes the number of our vectors (number of bits in a bin ID) and the query range. It returns a collection of lists, which show all possible bit flips that lead to surrounding bins with the given range as maximum number of flips. Our query method takes these lists of bit flips, applies each one of them and saves all documents found in any of the reached bins in a set. This set then includes all possible candidates for being nearest neighbors and can be further examined.\\
+
+
+
+
+
+
+
+
+
+
+\end{document}
