@@ -1,0 +1,13 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{The data set}{chapter.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Data preparation}{}% 3
+\BOOKMARK [0][-]{chapter.3}{Locality Sensitive Hashing}{}% 4
+\BOOKMARK [1][-]{section.3.1}{Sorting data into bins}{chapter.3}% 5
+\BOOKMARK [1][-]{section.3.2}{First evaluation of a LSH model}{chapter.3}% 6
+\BOOKMARK [0][-]{chapter.4}{Querying the LSH model}{}% 7
+\BOOKMARK [1][-]{section.4.1}{Structure of a query}{chapter.4}% 8
+\BOOKMARK [1][-]{section.4.2}{Query implementation}{chapter.4}% 9
+\BOOKMARK [0][-]{chapter.5}{Tuning of the LSH model}{}% 10
+\BOOKMARK [1][-]{section.5.1}{The range parameter}{chapter.5}% 11
+\BOOKMARK [1][-]{section.5.2}{The number of random vectors}{chapter.5}% 12
+\BOOKMARK [1][-]{section.5.3}{Balancing the parameters}{chapter.5}% 13

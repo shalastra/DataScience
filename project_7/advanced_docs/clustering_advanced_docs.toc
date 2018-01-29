@@ -1,0 +1,14 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}The data set}{3}{section.1.1}
+\contentsline {chapter}{\numberline {2}Data preparation}{4}{chapter.2}
+\contentsline {chapter}{\numberline {3}Locality Sensitive Hashing}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Sorting data into bins}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}First evaluation of a LSH model}{6}{section.3.2}
+\contentsline {chapter}{\numberline {4}Querying the LSH model}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}Structure of a query}{7}{section.4.1}
+\contentsline {section}{\numberline {4.2}Query implementation}{7}{section.4.2}
+\contentsline {chapter}{\numberline {5}Tuning of the LSH model}{9}{chapter.5}
+\contentsline {section}{\numberline {5.1}The range parameter}{9}{section.5.1}
+\contentsline {section}{\numberline {5.2}The number of random vectors}{11}{section.5.2}
+\contentsline {section}{\numberline {5.3}Balancing the parameters}{13}{section.5.3}
